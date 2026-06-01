@@ -6,4 +6,4 @@ build/
 .pytest_cache/
 .eggs/
 *.log
-.DS_Store
+.DS_Store 
