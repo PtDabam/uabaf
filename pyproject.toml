@@ -9,7 +9,7 @@ description = "Uncertainty-Aware Bias Auditing Framework for ML models on small 
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Balgah Sounders Junior", email = "" }
+    { name = "Balgah Sounders Junior"} 
 ]
 keywords = [
     "fairness", "bias", "auditing", "machine learning",
