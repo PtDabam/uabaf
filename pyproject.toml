@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uabaf"
+version = "0.1.0"
+description = "Uncertainty-Aware Bias Auditing Framework for ML models on small datasets"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Balgah Sounders Junior", email = "" }
+]
+keywords = [
+    "fairness", "bias", "auditing", "machine learning",
+    "bootstrap", "confidence intervals", "small datasets"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.8"
+
+# Runtime dependencies — kept minimal so UABAF installs cleanly
+# alongside whatever ML stack the user already has.
+dependencies = [
+    "numpy>=1.23,<2",
+    "pandas>=1.5",
+    "scipy>=1.9",
+    "scikit-learn>=1.1",
+    "matplotlib>=3.6",
+    "seaborn>=0.12",
+]
+
+# Optional extras — install with: pip install uabaf[compare]
+[project.optional-dependencies]
+compare = [
+    "aif360[LFR,OptimPreproc]",
+    "fairlearn",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["uabaf*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
