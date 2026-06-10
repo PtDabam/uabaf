@@ -19,7 +19,7 @@ different random seed. UABAF adds a confidence interval and an
 uncertainty-aware verdict:
 
 ```
-Demographic Parity Difference: 0.12  CI: [0.04, 0.21]  ⚠️  FAIL — Low Confidence
+Demographic Parity Difference: 0.12  CI: [0.04, 0.21]    FAIL — Low Confidence
 ```
 
 ---
@@ -82,8 +82,7 @@ report.plot()      # BCa CI interval plots for all metrics
 
 ## Research context
 
-UABAF was developed as part of an M.Tech thesis at the University of Buea,
-Department of Computer Engineering, under the supervision of Dr. Nyanga Bernard Y.
+UABAF was developed as part of an M.Tech thesis
 
 ---
 
