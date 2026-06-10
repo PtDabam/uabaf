@@ -13,27 +13,27 @@ class TestAssignVerdict:
 
     def test_pass_high_confidence(self):
         result = assign_verdict('dpd', point=0.05, ci_lo=0.01, ci_hi=0.09)
-        assert result['verdict']    == '✅ PASS — High Confidence'
+        assert result['verdict']    == 'PASS with High Confidence'
         assert result['pass_fail']  == 'PASS'
         assert result['confidence'] == 'HIGH'
         assert result['breaches']   == False
 
     def test_pass_low_confidence(self):
         result = assign_verdict('dpd', point=0.05, ci_lo=-0.10, ci_hi=0.20)
-        assert result['verdict']    == '⚠️  PASS — Low Confidence'
+        assert result['verdict']    == 'PASS with Low Confidence'
         assert result['pass_fail']  == 'PASS'
         assert result['confidence'] == 'LOW'
 
     def test_fail_high_confidence(self):
         result = assign_verdict('dpd', point=0.15, ci_lo=0.11, ci_hi=0.19)
-        assert result['verdict']    == '❌ FAIL — High Confidence'
+        assert result['verdict']    == 'FAIL with High Confidence'
         assert result['pass_fail']  == 'FAIL'
         assert result['confidence'] == 'HIGH'
         assert result['breaches']   == True
 
     def test_fail_low_confidence(self):
         result = assign_verdict('dpd', point=0.15, ci_lo=0.02, ci_hi=0.28)
-        assert result['verdict']    == '🔍 FAIL — Low Confidence'
+        assert result['verdict']    == 'FAIL with Low Confidence'
         assert result['pass_fail']  == 'FAIL'
         assert result['confidence'] == 'LOW'
 

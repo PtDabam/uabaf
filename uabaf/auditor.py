@@ -204,8 +204,8 @@ class AuditReport:
 
         # ── Overall verdict ───────────────────────────────────────────
         print("─" * width)
-        overall = ("✅ OVERALL: PASS" if self.passed
-                   else "❌ OVERALL: FAIL")
+        overall = ("OVERALL: PASS" if self.passed
+                   else "OVERALL: FAIL")
         note = ("  (no high-confidence failures)" if self.passed
                 else "  (one or more high-confidence failures)")
         print(f"{overall}{note}")

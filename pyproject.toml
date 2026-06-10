@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uabaf"
-version = "0.1.0"
+version = "0.2.0"
 description = "Uncertainty-Aware Bias Auditing Framework for ML models on small datasets"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Balgah Sounders Junior"} 
+    { name = "Balgah Sounders Junior", email = "" }
 ]
 keywords = [
     "fairness", "bias", "auditing", "machine learning",

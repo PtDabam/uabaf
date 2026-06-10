@@ -147,7 +147,7 @@ class ProfileReport:
             print(f"Dataset: {self.dataset_name}")
         print("=" * width)
 
-        icons = {'CRITICAL': '🔴', 'WARNING': '🟡', 'INFO': '🟢'}
+        icons = {'CRITICAL': '[CRITICAL]', 'WARNING': '[WARNING]', 'INFO': '[OK]'}
 
         # Group findings by check
         checks = {}
@@ -165,7 +165,7 @@ class ProfileReport:
             print(f"\n{title}")
             group = checks.get(check_key, [])
             if not group:
-                print("  🟢 No issues found.")
+                print("  [OK] No issues found.")
                 continue
             for f in group:
                 icon = icons.get(f['severity'], '  ')

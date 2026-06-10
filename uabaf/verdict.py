@@ -10,20 +10,20 @@ conclusion given the width of the confidence interval.
 
 Verdict categories
 ------------------
-✅ PASS — High Confidence
+PASS with High Confidence
     The metric is within the fair range AND the CI is narrow enough
     to trust the conclusion. The model is likely fair on this metric.
 
-⚠️  PASS — Low Confidence
+PASS with Low Confidence
     The metric is within the fair range BUT the CI is wide. The model
     appears fair but the small dataset means we cannot be certain.
     Recommendation: collect more data before acting on this result.
 
-❌ FAIL — High Confidence
+FAIL with High Confidence
     The metric breaches the fair range AND the CI is narrow. The bias
     finding is reliable. Action is warranted.
 
-🔍 FAIL — Low Confidence
+FAIL with Low Confidence
     The metric breaches the fair range BUT the CI is wide. The result
     is inconclusive — the true value could fall either side of the
     threshold. Do not act on this finding without more data.
@@ -137,7 +137,7 @@ def assign_verdict(metric_key, point, ci_lo, ci_hi,
     Returns
     -------
     dict with keys:
-        'verdict'     — full verdict string with emoji
+        'verdict'     — full verdict string (e.g. 'PASS with High Confidence')
         'pass_fail'   — 'PASS' or 'FAIL'
         'confidence'  — 'HIGH' or 'LOW'
         'breaches'    — bool, True if point estimate fails threshold
@@ -149,10 +149,10 @@ def assign_verdict(metric_key, point, ci_lo, ci_hi,
     --------
     >>> from uabaf.verdict import assign_verdict
     >>> assign_verdict('dpd', point=0.05, ci_lo=0.01, ci_hi=0.09)
-    {'verdict': '✅ PASS — High Confidence', 'pass_fail': 'PASS', ...}
+    {'verdict': 'PASS with High Confidence', 'pass_fail': 'PASS', ...}
 
     >>> assign_verdict('dpd', point=0.14, ci_lo=0.02, ci_hi=0.26)
-    {'verdict': '🔍 FAIL — Low Confidence', 'pass_fail': 'FAIL', ...}
+    {'verdict': 'FAIL with Low Confidence', 'pass_fail': 'FAIL', ...}
     """
     if thresholds is None:
         thresholds = THRESHOLDS
@@ -164,13 +164,13 @@ def assign_verdict(metric_key, point, ci_lo, ci_hi,
     conf     = _confidence_level(width, ci_width_threshold)
 
     if not breaches and conf == 'HIGH':
-        verdict = '✅ PASS — High Confidence'
+        verdict = 'PASS with High Confidence'
     elif not breaches and conf == 'LOW':
-        verdict = '⚠️  PASS — Low Confidence'
+        verdict = 'PASS with Low Confidence'
     elif breaches and conf == 'HIGH':
-        verdict = '❌ FAIL — High Confidence'
+        verdict = 'FAIL with High Confidence'
     else:
-        verdict = '🔍 FAIL — Low Confidence'
+        verdict = 'FAIL with Low Confidence'
 
     return {
         'metric'    : metric_key,

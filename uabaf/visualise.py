@@ -31,19 +31,19 @@ __all__ = [
 # Mapped to the four verdict categories for consistency across all plots.
 
 VERDICT_COLORS = {
-    'PASS_HIGH': '#16A34A',   # green  — ✅ PASS High Confidence
-    'PASS_LOW' : '#86EFAC',   # light green — ⚠️  PASS Low Confidence
-    'FAIL_HIGH': '#DC2626',   # red    — ❌ FAIL High Confidence
-    'FAIL_LOW' : '#FCA5A5',   # light red   — 🔍 FAIL Low Confidence
+    'PASS_HIGH': '#16A34A',   # green       — PASS with High Confidence
+    'PASS_LOW' : '#86EFAC',   # light green — PASS with Low Confidence
+    'FAIL_HIGH': '#DC2626',   # red         — FAIL with High Confidence
+    'FAIL_LOW' : '#FCA5A5',   # light red   — FAIL with Low Confidence
     'THRESHOLD': '#6B7280',   # grey   — threshold lines
     'IDEAL'    : '#D1D5DB',   # light grey — ideal value line
 }
 
 VERDICT_LABELS = {
-    'PASS_HIGH': '✅ PASS — High Confidence',
-    'PASS_LOW' : '⚠️  PASS — Low Confidence',
-    'FAIL_HIGH': '❌ FAIL — High Confidence',
-    'FAIL_LOW' : '🔍 FAIL — Low Confidence',
+    'PASS_HIGH': 'PASS with High Confidence',
+    'PASS_LOW' : 'PASS with Low Confidence',
+    'FAIL_HIGH': 'FAIL with High Confidence',
+    'FAIL_LOW' : 'FAIL with Low Confidence',
 }
 
 
@@ -265,8 +265,8 @@ def plot_verdict_summary(results_dict, title="UABAF — Verdict Summary"):
             ax.add_patch(rect)
 
             # Emoji icon in the cell
-            icons = {'PASS_HIGH': '✅', 'PASS_LOW': '⚠️',
-                     'FAIL_HIGH': '❌', 'FAIL_LOW': '🔍'}
+            icons = {'PASS_HIGH': '[P+]', 'PASS_LOW': '[P?]',
+                     'FAIL_HIGH': '[F+]', 'FAIL_LOW': '[F?]'}
             ax.text(c + 0.5, n_rows - r - 0.55,
                     icons.get(color_key, ''),
                     ha='center', va='center', fontsize=13, zorder=3)
