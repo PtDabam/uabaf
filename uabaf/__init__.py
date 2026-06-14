@@ -22,7 +22,7 @@ uabaf.auditor    — Stage 2+3 orchestration and AuditReport class
 uabaf.visualise  — CI interval plots and audit visualisations
 """
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __author__  = "Balgah Sounders Junior"
 
 # Populated progressively as modules are added.
