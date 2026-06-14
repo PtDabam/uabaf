@@ -88,7 +88,8 @@ class AuditReport:
     ci_results   : dict — Stage 2 BCa CI results keyed by metric
     verdicts     : dict — Stage 3 verdict dicts keyed by metric
     y_pred       : np.ndarray — model predictions on X_test
-    passed       : bool — True if no metric has FAIL — High Confidence
+    passed       : bool — False if any metric fails (any confidence level)
+    overall      : str  — "PASS", "INCONCLUSIVE", or "FAIL"
 
     Examples
     --------
@@ -148,10 +149,24 @@ class AuditReport:
         # ── Overall pass/fail ─────────────────────────────────────────
         # The audit passes overall only if no metric is a high-confidence
         # fail — low-confidence fails are inconclusive, not definitive.
-        self.passed = not any(
+        _any_high_fail = any(
             v['pass_fail'] == 'FAIL' and v['confidence'] == 'HIGH'
             for v in self.verdicts.values()
         )
+        _any_fail = any(
+            v['pass_fail'] == 'FAIL'
+            for v in self.verdicts.values()
+        )
+
+        if _any_high_fail:
+            self.overall = 'FAIL'
+            self.passed  = False
+        elif _any_fail:
+            self.overall = 'INCONCLUSIVE'
+            self.passed  = False
+        else:
+            self.overall = 'PASS'
+            self.passed  = True
 
     # ── Reporting ─────────────────────────────────────────────────────
 
@@ -204,10 +219,15 @@ class AuditReport:
 
         # ── Overall verdict ───────────────────────────────────────────
         print("─" * width)
-        overall = ("OVERALL: PASS" if self.passed
-                   else "OVERALL: FAIL")
-        note = ("  (no high-confidence failures)" if self.passed
-                else "  (one or more high-confidence failures)")
+        if self.overall == 'PASS':
+            overall = "OVERALL: PASS"
+            note    = "  (all metrics within tolerable limits)"
+        elif self.overall == 'INCONCLUSIVE':
+            overall = "OVERALL: INCONCLUSIVE"
+            note    = "  (bias signals detected but low confidence -- collect more data)"
+        else:
+            overall = "OVERALL: FAIL"
+            note    = "  (one or more high-confidence failures -- action required)"
         print(f"{overall}{note}")
         print("=" * width)
 
@@ -275,7 +295,7 @@ class AuditReport:
         return pd.DataFrame(rows)
 
     def __repr__(self):
-        status = "PASS" if self.passed else "FAIL"
+        status = self.overall
         return (f"AuditReport(dataset='{self.dataset_name}', "
                 f"model='{self.model_name}', "
                 f"n={len(self.y_test)}, "

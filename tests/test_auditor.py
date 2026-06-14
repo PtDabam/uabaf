@@ -137,4 +137,4 @@ class TestAuditReportMethods:
 
     def test_repr_contains_overall_status(self, report):
         r = repr(report)
-        assert 'PASS' in r or 'FAIL' in r
+        assert 'PASS' in r or 'FAIL' in r or 'INCONCLUSIVE' in r
